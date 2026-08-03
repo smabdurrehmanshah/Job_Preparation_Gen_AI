@@ -44,7 +44,7 @@ router.get("/", verifyToken, getAllInterviewReportsController);
  */
 router.post(
   "/resume/pdf/:interviewReportId",
-  
+  verifyToken,
   generateResumePdfController,
 );
 
