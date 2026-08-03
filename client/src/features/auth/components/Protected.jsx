@@ -1,6 +1,6 @@
 import { Navigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect } from "react";
+import { LoaderCircle } from "lucide-react";
 
 const Protected = ({ children }) => {
   const { user, isLoading } = useAuth();
@@ -8,7 +8,7 @@ const Protected = ({ children }) => {
   if (isLoading) {
     return (
       <main>
-        <div>Loading...</div>
+        <LoaderCircle className="spin" />
       </main>
     );
   }

@@ -67,7 +67,7 @@ const Register = () => {
             className={`button primary-button ${styles["loader"]}`}
           >
             {isLoading ? (
-              <LoaderCircle className={styles["spin"]} />
+              <LoaderCircle className="spin" />
             ) : (
               "Register"
             )}

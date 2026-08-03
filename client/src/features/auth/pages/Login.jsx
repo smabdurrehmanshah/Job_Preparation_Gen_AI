@@ -48,7 +48,10 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className={`button primary-button ${styles["loader"]}`}>
+          <button
+            type="submit"
+            className={`button primary-button ${styles["loader"]}`}
+          >
             {isLoading ? <LoaderCircle className="spin" /> : "Login"}
           </button>
         </form>

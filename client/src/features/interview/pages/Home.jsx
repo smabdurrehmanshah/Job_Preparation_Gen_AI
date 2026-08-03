@@ -1,4 +1,4 @@
-import { Briefcase, CloudUpload, Info, Sparkles, User } from "lucide-react";
+import { Briefcase, CloudUpload, Info, LoaderCircle, Sparkles, User } from "lucide-react";
 import styles from "./../style/home.module.scss";
 import { useInterview } from "../hooks/useInterview";
 import { useEffect, useRef, useState } from "react";
@@ -43,7 +43,7 @@ const Home = () => {
   if (isLoading) {
     return (
       <main>
-        <h1>Loading Interview Report...</h1>
+        <LoaderCircle className="spin" />
       </main>
     );
   }
