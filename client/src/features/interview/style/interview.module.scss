@@ -392,7 +392,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.05rem;
 }
 
 .score-number {
@@ -400,14 +399,6 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
-}
-
-.score-percent {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--muted);
-  align-self: flex-start;
-  margin-top: 0.55rem;
 }
 
 .score-caption {

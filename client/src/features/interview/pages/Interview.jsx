@@ -233,8 +233,7 @@ const Interview = () => {
               />
             </svg>
             <div className={styles["score-value"]}>
-              <span className={styles["score-number"]}>{score}</span>
-              <span className={styles["score-percent"]}>%</span>
+              <span className={styles["score-number"]}>{score}%</span>
             </div>
           </div>
           <p className={styles["score-caption"]}>{matchLabelForScore(score)}</p>
