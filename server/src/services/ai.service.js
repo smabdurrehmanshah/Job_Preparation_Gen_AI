@@ -135,9 +135,6 @@ const generatePdfFromHtml = async (htmlContent) => {
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
-
-    console.log("Executable Path: ", puppeteer.executablePath);
-
     const page = await browser.newPage();
 
     await page.setContent(htmlContent, { waitUntil: "networkidle0" });
