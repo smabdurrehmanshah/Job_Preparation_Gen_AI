@@ -129,20 +129,24 @@ const generateInterviewReport = async ({
 
 //* generatePdfFromHtml Function
 const generatePdfFromHtml = async (htmlContent) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
 
-  const pdfBuffer = await page.pdf({
-    format: "A4",
-    printBackground: true,
-    margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" },
-  });
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true,
+      margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" },
+    });
 
-  await browser.close();
+    await browser.close();
 
-  return pdfBuffer;
+    return pdfBuffer;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //* generateResumePdf Function
@@ -200,23 +204,27 @@ Requirements:
 Return only the JSON object.
   `;
 
-  const interaction = await client.interactions.create({
-    model: process.env.GEMINI_MODEL,
-    input: prompt,
-    response_format: {
-      type: "text",
-      mime_type: "application/json",
-      schema: z.toJSONSchema(resumePdfSchema),
-    },
-  });
+  try {
+    const interaction = await client.interactions.create({
+      model: process.env.GEMINI_MODEL,
+      input: prompt,
+      response_format: {
+        type: "text",
+        mime_type: "application/json",
+        schema: z.toJSONSchema(resumePdfSchema),
+      },
+    });
 
-  const jsonContent = resumePdfSchema.parse(
-    JSON.parse(interaction.output_text),
-  );
+    const jsonContent = resumePdfSchema.parse(
+      JSON.parse(interaction.output_text),
+    );
 
-  const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
+    const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
 
-  return pdfBuffer;
+    return pdfBuffer;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {

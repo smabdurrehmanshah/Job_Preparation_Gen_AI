@@ -114,6 +114,7 @@ const generateResumePdfController = async (req, res) => {
 
     return res.status(200).send(pdfBuffer);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Internal server error!" });
   }
 };
