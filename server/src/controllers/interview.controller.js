@@ -105,8 +105,7 @@ const generateResumePdfController = async (req, res) => {
       jobDescription,
       selfDescription,
     });
-
-    console.log("pdfBuffer: ", pdfBuffer);
+    
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": `attachment; filename="ai_resume_${interviewReportId}.pdf"`,

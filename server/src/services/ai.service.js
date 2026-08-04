@@ -130,7 +130,11 @@ const generateInterviewReport = async ({
 //* generatePdfFromHtml Function
 const generatePdfFromHtml = async (htmlContent) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
     const page = await browser.newPage();
 
     await page.setContent(htmlContent, { waitUntil: "networkidle0" });
@@ -146,6 +150,7 @@ const generatePdfFromHtml = async (htmlContent) => {
     return pdfBuffer;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -219,11 +224,8 @@ Return only the JSON object.
       JSON.parse(interaction.output_text),
     );
 
-    console.log("jsonContent.html", jsonContent.html);
-
     const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
 
-    console.log("pdfBuffer generatePdfFromHtml: ", pdfBuffer);
     return pdfBuffer;
   } catch (error) {
     console.log(error);
