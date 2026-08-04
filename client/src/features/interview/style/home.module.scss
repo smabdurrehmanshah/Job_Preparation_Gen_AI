@@ -310,17 +310,21 @@
     color: var(--muted);
   }
 
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logout-btn,
   .generate-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border: none;
     outline: none;
     padding: 0.85rem 1.35rem;
     border-radius: 10px;
-    background-color: var(--accent);
-    color: #fff;
     font-size: 0.95rem;
     font-weight: 600;
     font-family: inherit;
@@ -329,9 +333,30 @@
     transition:
       background-color 0.2s ease,
       transform 0.15s ease;
+  }
+
+  .generate-btn {
+    border: none;
+    background-color: var(--accent);
+    color: #fff;
 
     &:hover {
       background-color: var(--accent-hover);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+
+  .logout-btn {
+    border: 1px solid var(--border);
+    background-color: transparent;
+    color: var(--text);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.18);
     }
 
     &:active {
@@ -400,6 +425,16 @@
       text-align: center;
     }
 
+    .generate-btn {
+      width: 100%;
+    }
+
+    .footer-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .logout-btn,
     .generate-btn {
       width: 100%;
     }

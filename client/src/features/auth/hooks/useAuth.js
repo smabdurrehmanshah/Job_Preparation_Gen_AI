@@ -32,6 +32,7 @@ export const useAuth = () => {
     }
   };
 
+  //* handleLogout
   const handleLogout = async () => {
     setIsLoading(true);
 

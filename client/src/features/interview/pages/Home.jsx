@@ -1,11 +1,21 @@
-import { Briefcase, CloudUpload, Info, LoaderCircle, Sparkles, User } from "lucide-react";
+import {
+  Briefcase,
+  CloudUpload,
+  Info,
+  LoaderCircle,
+  Sparkles,
+  User,
+} from "lucide-react";
 import styles from "./../style/home.module.scss";
 import { useInterview } from "../hooks/useInterview";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { useAuth } from "../../auth/hooks/useAuth";
 
 const Home = () => {
   const { isLoading, reports, generateReport, getAllReports } = useInterview();
+  const { handleLogout } = useAuth();
+
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const resumeInputRef = useRef(null);
@@ -16,6 +26,7 @@ const Home = () => {
     getAllReports();
   }, []);
 
+  //* handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,6 +49,11 @@ const Home = () => {
     });
 
     navigate(`/interview/${interviewReport._id}`);
+  };
+
+  //* handleLogoutUser Function
+  const handleLogoutUser = () => {
+    handleLogout();
   };
 
   if (isLoading) {
@@ -156,34 +172,50 @@ const Home = () => {
           <p className={styles["footer-note"]}>
             AI-Powered Strategy Generation · Approx 30s
           </p>
-          <button type="submit" className={styles["generate-btn"]}>
-            <Sparkles size={18} strokeWidth={2} />
-            Generate My Interview Strategy
-          </button>
+          <div className={styles["footer-actions"]}>
+            <button
+              onClick={handleLogoutUser}
+              type="button"
+              className={styles["logout-btn"]}
+            >
+              Logout
+            </button>
+            <button type="submit" className={styles["generate-btn"]}>
+              <Sparkles size={18} strokeWidth={2} />
+              Generate My Interview Strategy
+            </button>
+          </div>
         </footer>
       </form>
 
-    {reports && reports.length > 0 && (
-      <section className={styles["reports-section"]}>
-        <h2>My Recent Interview Plans</h2>
-        <ul className={styles["reports-list"]}>
-          {reports.map((report) => (
-            <li key={report._id} className={styles["report-card"]}>
-              <Link to={`/interview/${report._id}`} className={styles["card-link"]}>
-                <h3 className={styles["card-title"]}>{report.title}</h3>
-                <p className={styles["card-date"]}>
-                  Generated on {new Date(report.createdAt).toLocaleDateString()}
-                </p>
-                <p className={styles["card-score"]}>
-                  Match Score: {report.matchScore !== undefined ? `${report.matchScore}%` : "0%"}
-                </p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )}
-    
+      {reports && reports.length > 0 && (
+        <section className={styles["reports-section"]}>
+          <h2>My Recent Interview Plans</h2>
+          <ul className={styles["reports-list"]}>
+            {reports.map((report) => (
+              <li key={report._id} className={styles["report-card"]}>
+                <Link
+                  to={`/interview/${report._id}`}
+                  className={styles["card-link"]}
+                >
+                  <h3 className={styles["card-title"]}>{report.title}</h3>
+                  <p className={styles["card-date"]}>
+                    Generated on{" "}
+                    {new Date(report.createdAt).toLocaleDateString()}
+                  </p>
+                  <p className={styles["card-score"]}>
+                    Match Score:{" "}
+                    {report.matchScore !== undefined
+                      ? `${report.matchScore}%`
+                      : "0%"}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <nav className={styles["page-footer"]}>
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
