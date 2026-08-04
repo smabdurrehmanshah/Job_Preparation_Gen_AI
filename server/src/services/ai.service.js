@@ -219,8 +219,11 @@ Return only the JSON object.
       JSON.parse(interaction.output_text),
     );
 
+    console.log("jsonContent.html", jsonContent.html);
+
     const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
 
+    console.log("pdfBuffer generatePdfFromHtml: ", pdfBuffer);
     return pdfBuffer;
   } catch (error) {
     console.log(error);
